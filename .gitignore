@@ -1,0 +1,6 @@
+data/
+test_data/
+checkpoints_per_epoch/
+wandb/
+**/__pycache__/
+*.env
