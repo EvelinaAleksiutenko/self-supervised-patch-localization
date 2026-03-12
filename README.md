@@ -96,7 +96,7 @@ pipenv run wandb login
 ---
 
 ## Usage
-> 📄 As the default the device is set to ['cpu'](), we recommend to change it to ['cuda']().
+> 📄 As the default the device is set to ['cpu'](https://github.com/EvelinaAleksiutenko/self-supervised-patch-localization/blob/be7b95c3b28d7714319689016503fc945e39e487/src/config/config.py#L33), we recommend to change it to ['cuda'](https://github.com/EvelinaAleksiutenko/self-supervised-patch-localization/blob/be7b95c3b28d7714319689016503fc945e39e487/src/config/config.py#L33).
 <details>
 <summary><strong>Run the API</strong></summary>
 
