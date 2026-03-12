@@ -27,9 +27,8 @@ The methodology employs a **Siamese Network** with **Cross-Correlation** and **S
 |--------------------|--------------------|
 | Number of Params   | 9,552              |
 | Mean Euclidean Distance| 0.230 px       |
-| Avg Inference      | 0.49 ms/sample     |
-| Throughput         | 2,024.9 samples/s  |
-
+| Avg Inference(GPU NVIDIA GeForce GTX 1650) | 0.49 ms/sample|
+|Avg inference(CPU) | 8.26 ms/sample      |
 ---
 
 ## Setup
@@ -96,7 +95,7 @@ pipenv run wandb login
 ---
 
 ## Usage
-
+> 📄 As the default the device is set to ['cpu'](), we recommend to change it to ['cuda']().
 <details>
 <summary><strong>Run the API</strong></summary>
 
@@ -122,16 +121,8 @@ pipenv run streamlit run src/app/streamlit_app.py
 <details>
 <summary><strong>Run Evaluation</strong></summary>
 
-First, update `checkpoint_path` in `src/config/config.py`:
-
-```python
-checkpoint_path = 'checkpoints/model.pt'
-```
-
-Then run:
-
 ```bash
-pipenv run python src/utils/evaluate.py checkpoints/model.pt test_data
+pipenv run python src/utils/evaluate.py model.pt test_data
 ```
 
 **Optional arguments:**
@@ -145,6 +136,13 @@ pipenv run python src/utils/evaluate.py checkpoints/model.pt test_data --batch-s
 <details>
 <summary><strong>Run Training</strong></summary>
 
+First, update `checkpoint_path` in `src/config/config.py`:
+
+```python
+checkpoint_path = 'checkpoints/model.pt'
+```
+
+Then run:
 ```bash
 pipenv run python src/utils/train.py
 ```
