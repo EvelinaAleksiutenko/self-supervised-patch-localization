@@ -1,0 +1,13 @@
+{
+  "best_trial": 1,
+  "best_mean_ed": 0.4120537340641022,
+  "best_params": {
+    "enc_out_channels": 16,
+    "temperature": 1.8659959624904914,
+    "batch_size": 128,
+    "lr": 0.0007309539835912913,
+    "weight_decay": 1.461896279370496e-05,
+    "warmup_epochs": 4,
+    "grad_clip": 1.1277223729341883
+  }
+}
