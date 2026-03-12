@@ -2,13 +2,13 @@
 
 This project addresses the problem of **localizing a small patch within a larger image** using a **self-supervised learning approach**.
 
+
 ## Overview
 
 The methodology employs a **Siamese Network** with **Cross-Correlation** and **Soft-Argmax** for self-supervised patch localization. We use CIFAR-100 (upscaled to 64×64) to simulate medical imaging data.
 
 > 📄 For detailed methodology, see the [Technical Report](Technical_report.md).
-
-![Streamlit Demo](asssets/output.gif)
+![Streamlit Demo](assets/output.gif)
 
 ---
 
