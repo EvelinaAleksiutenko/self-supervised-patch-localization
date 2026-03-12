@@ -28,7 +28,7 @@ class Config:
 
     tune_epochs:     int   = 25      # max epochs per Optuna trial
 
-    checkpoint_path: str   = 'checkpoints/model.pt'
+    checkpoint_path: str   = 'model.pt' # 'checkpoints/model.pt' while training
     seed:            int   = 42
     device:          str   = 'cuda' if torch.cuda.is_available() else 'cpu'
 
