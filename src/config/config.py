@@ -28,9 +28,9 @@ class Config:
 
     tune_epochs:     int   = 25      # max epochs per Optuna trial
 
-    checkpoint_path: str   = 'model.pt' # 'checkpoints/model.pt' while training
+    checkpoint_path: str   = 'model.pt' # TODO: change to 'checkpoints/model.pt' while training
     seed:            int   = 42
-    device:          str   = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device:          str   = 'cpu' # TODO: change to 'cuda' if torch.cuda.is_available() else 'cpu'
 
     wandb_project:   str   = 'patch-localization'
     wandb_run_name:  str   = ''
