@@ -21,26 +21,36 @@ I did some research over common practises in solving image registration task and
   - *Intensity-based* methods (SSD, NCC, etc) slide or warp one image over the other and iteratively minimize a pixel-level dissimilarity score. 
   -  *Feature-based* methods (SIFT, SURF) detect sparse keypoints, compute descriptor vectors, match them across images, and estimate the transformation from matched pairs.  
   
-  Both cannot be fine-tuned end-to-end, and are more sensitive to noise without learned features.
-- **Direct regression CNN** (predict (y, x) from concatenated source+patch): requires GT coordinates in the loss (MSE/L1), violating the self-supervised constraint.
-### Loss function alternatives:
-- **Contrastive/triplet loss**: would require constructing positive/negative pairs using GT coordinates, or ignoring the provided patch entirely.
-- **L1/MSE as reconstruction loss**: viable alternatives to NCC, but sensitive to additive noise and intensity shifts. NCC is invariant to global intensity offset/scale and is the standard loss in image registration (VoxelMorph).
+  Both are more sensitive to noise without learned features.
+- **Direct regression CNN** (predict (y, x) from concatenated source+patch): requires GT coordinates in the loss, violating the self-supervised constraint.
+
 
 ### Architecture
 
 The encoder is a 3-layer CNN (`Conv2d → BatchNorm → ReLU` ×3) with **no striding or pooling**, preserving a 1:1 spatial correspondence between feature map and pixel coordinates. This ensures the cross-correlation output directly maps to pixel locations without rescaling. The model has **9,552 parameters**.
 
-BatchNorm stabilizes training through the long gradient path (NCC → grid_sample → soft-argmax → cross-correlation → encoder), enables higher learning rates, and provides mild regularization.
+Batch Normalization stabilizes training by normalizing feature activations, allowing higher learning rates and faster convergence, while also providing mild regularization.
 
+The ReLU activation function is used to introduce non-linearity, allowing the network to learn non-linear features and capture complex structures in images.
 ### Loss Function
 
-**NCC loss** = 1 − NCC(extracted_region, patch). The extracted region is obtained via `grid_sample`, making coordinates differentiable. NCC is computed per-sample, then averaged over the batch. Range: 0 (perfect match) to 2 (no correlation).
+**NCC loss** = 1 − NCC(extracted_region, patch). 
 
+For each image in the batch and for each channel, the NCC is computed between the corresponding H×W patches of the extracted region and the target patch. The resulting NCC values are then averaged across the batch and channels to produce a single scalar loss.
+
+NCC measures the linear correlation between the spatial intensity patterns of two patches. Because the inputs are mean-centered and normalized, NCC is invariant to global brightness and contrast changes. This makes it more robust to intensity shifts and moderate noise than pixel-wise losses such as L1 or MSE. NCC is also a standard similarity metric in image registration literature (e.g., VoxelMorph).
+
+### Loss function alternatives:
+- **Contrastive/triplet loss**: would require constructing positive/negative pairs using GT coordinates, causing same violating the self-supervised constraint.
+- **L1/MSE as reconstruction loss**: viable alternatives to NCC, but sensitive to additive noise and intensity shifts. NCC is invariant to global intensity offset/scale and is the standard loss in image registration (VoxelMorph).
+
+Pros of choosing NCC loss:
+NCC requires mean computation, normalization, dot products
+So it involves more operations then as an example L1 or MSE.
 ### Metrics
 
 - **Training**: NCC loss (the self-supervised objective; should decrease monotonically).
-- **Validation**: NCC loss + Mean Euclidean Distance (MED), Median ED, MAE_y, MAE_x,    Acc@1px/2px/5px (computed using GT coords, for monitoring only).
+- **Validation**: NCC loss + Mean Euclidean Distance (MED), Median ED, MAE_y, MAE_x, Acc@1px/2px/5px (computed using GT coords, for monitoring only).
 
     MED directly measures localization accuracy in pixels. 
 
