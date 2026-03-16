@@ -35,7 +35,7 @@ The methodology employs a **Siamese Network** with **Cross-Correlation** and **S
 ## Setup
 
 <details>
-<summary><strong>1. Clone Repository</strong></summary>
+<summary>1. Clone Repository</summary>
 
 ```bash
 git clone https://github.com/EvelinaAleksiutenko/ujp-test-assignment.git
@@ -45,7 +45,7 @@ cd ujp-test-assignment
 </details>
 
 <details>
-<summary><strong>2. Environment Setup</strong></summary>
+<summary>2. Environment Setup</summary>
 
 **Requirements:**
 - Python 3.10.11
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 </details>
 
 <details>
-<summary><strong>3. Configure Environment Variables</strong></summary>
+<summary>3. Configure Environment Variables</summary>
 
 Create a `.env` file in the project root:
 
@@ -83,7 +83,7 @@ PYTHONPATH=.;src
 </details>
 
 <details>
-<summary><strong>4. Weights & Biases (Optional)</strong></summary>
+<summary>4. Weights & Biases (Optional)</summary>
 
 For training monitoring, create an account on [W&B](https://wandb.ai/home) and log in:
 
@@ -98,7 +98,7 @@ pipenv run wandb login
 ## Usage
 > 📄 As the default the device is set to ['cpu'](https://github.com/EvelinaAleksiutenko/self-supervised-patch-localization/blob/be7b95c3b28d7714319689016503fc945e39e487/src/config/config.py#L33), we recommend to change it to ['cuda'](https://github.com/EvelinaAleksiutenko/self-supervised-patch-localization/blob/be7b95c3b28d7714319689016503fc945e39e487/src/config/config.py#L33).
 <details>
-<summary><strong>Run the API</strong></summary>
+<summary>Run the API</summary>
 
 Start the FastAPI inference service:
 
@@ -109,7 +109,7 @@ pipenv run uvicorn src.app.api:app --host 127.0.0.1 --port 8000
 </details>
 
 <details>
-<summary><strong>Run Streamlit Demo</strong></summary>
+<summary>Run Streamlit Demo</summary>
 
 Launch the interactive demo UI:
 
@@ -120,7 +120,7 @@ pipenv run streamlit run src/app/streamlit_app.py
 </details>
 
 <details>
-<summary><strong>Run Evaluation</strong></summary>
+<summary>Run Evaluation</summary>
 
 ```bash
 pipenv run python src/utils/evaluate.py model.pt test_data
@@ -135,7 +135,7 @@ pipenv run python src/utils/evaluate.py checkpoints/model.pt test_data --batch-s
 </details>
 
 <details>
-<summary><strong>Run Training</strong></summary>
+<summary>Run Training</summary>
 
 First, update `checkpoint_path` in `src/config/config.py`:
 
@@ -155,7 +155,7 @@ pipenv run python src/utils/train.py
 ## Troubleshooting
 
 <details>
-<summary><strong>Import Errors: "No module named src.config"</strong></summary>
+<summary>Import Errors: "No module named src.config"</summary>
 
 1. Ensure commands are run with `pipenv run ...` or inside `pipenv shell`
 2. Confirm `.env` exists and contains `PYTHONPATH=.;src`
@@ -168,7 +168,7 @@ set PYTHONPATH=.;src
 </details>
 
 <details>
-<summary><strong>CUDA Not Available</strong></summary>
+<summary>CUDA Not Available</summary>
 
 Install PyTorch with CUDA 12.6 support:
 
